@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import Form from './Form';
@@ -6,7 +5,7 @@ import Member from './Member';
 import axios from 'axios';
 
 const initialValues = {
-  name: '',
+  username: '',
   email: '',
   role: '',
 }
@@ -28,26 +27,26 @@ function App() {
       role: formValues.role.trim(),
     }
     
-    if(!newMember.name || !newMember.email || !newMember.role)  {
+    if(!newMember.username || !newMember.email || !newMember.role)  {
       return;
     }
 
     axios
-      .post('http://localhost:3000/', newMember).then(res => {setMembers(res.data)})
-     
-  
+      .post('http://localhost:3000/', newMember)
+      .then(res => {
+        setMembers([...members, res.data])
+        setFormValues(initialValues)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
   
   useEffect(() => {
     axios
       .get('http://localhost:3000/')
-      .then(res => {
-        setMembers([...members, res.data])
-        
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      .then(res => setMembers([...members, res.data]))
+    
   }, [])
  
 
@@ -61,7 +60,7 @@ function App() {
       />
       {members.map(member => {
         return (
-          <Member key={member.id} info={member}/>
+          <Member key={member.id} details={member}/>
         )
       })}
     </div>

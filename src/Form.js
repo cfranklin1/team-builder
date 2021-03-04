@@ -16,14 +16,14 @@ export default function Form(props)   {
     }
 
     return (
-        <form className='form-container' onSubmit={onSubmit}>
+        <form className='form-container'>
             <div className='form-inputs'>
                 <label>name
-                    <input name='name' type='text' value={values.name} onChange={onChange} placeholder='your name..' maxLength='25'/>
-                </label><br></br>
+                    <input name='username' type='text' value={values.username} onChange={onChange} placeholder='your name..' maxLength='25'/>
+                </label><br/>
                 <label>email
                     <input name='email' type='email' value={values.email} onChange={onChange} placeholder='name@email.com'/>
-                </label><br></br>
+                </label><br/>
                 <label>role
                     <select name='role' value={values.role} onChange={onChange}>
                         <option value=''>---select role---</option>
@@ -31,11 +31,11 @@ export default function Form(props)   {
                         <option value='BACK END ENGINEER'>BACK END</option>
                         <option value='WEB DESIGNER'>DESIGNER</option>
                     </select>
-                </label>
+                </label><br/>
 
-                <div className='submit'>
-                    <button disabled ={!values.name || !values.email || !values.role}>submit</button>
-                </div>
+                <label>
+                    <input type='submit' onSubmit={onSubmit} disabled ={!values.username || !values.email || !values.role} />
+                </label>
             </div>
         </form>
     )
